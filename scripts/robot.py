@@ -79,7 +79,7 @@ class Camera(IdealCamera):
                  direction_range=(-math.pi/3,math.pi/3),
                  distance_noise_rate=0.1,direction_noise=math.pi/90,
                  distance_bias_rate_stddev=0.1,direction_bias_stddev=math.pi/90,
-                 phantom_prob=0.1, phantom_range_x=(-5.0,5.0),phantom_range_y=(-5.0,5.0),
+                 phantom_prob=0.0, phantom_range_x=(-5.0,5.0),phantom_range_y=(-5.0,5.0),
                  oversight_prob=0.1,
                  occulusion_prob=0.0):
         super().__init__(env_map,distance_range,direction_range)
@@ -131,8 +131,8 @@ class Camera(IdealCamera):
             z = self.occulusion(z)
             z = self.oversight(z)
             if self.visible(z):
-                z = self.noise(z)
                 z = self.bias(z)
+                z = self.noise(z)
                 observed.append((z, lm.id))
 
         self.lastdata = observed
